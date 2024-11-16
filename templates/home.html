@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindForge</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>*,::after,::before{box-sizing:border-box}ol[class],ul[class]{padding:0;list-style:none}blockquote,body,dd,dl,figcaption,figure,h1,h2,h3,h4,li,ol[class],p,ul[class]{margin:0}body{min-height:100vh;scroll-behavior:smooth;text-rendering:optimizeSpeed;line-height:1.5;}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%;display:block}article>*+*{margin-top:1em}button,input,select,textarea{font:inherit}@media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important;scroll-behavior:auto!important}}</style> 
+    
+</head>
+<body class="">
+    <img src="/static/logo-nobg.png" width="250px" height="250px" alt="logo" id="logo">
+    <p id="message"></p>
+    <img id="replay" onclick="replay()" src="/static/replay.svg" width="60px" height="60px" alt="">
+    
+</body>
+
+
+<script>
+    
+    var message_text = {{message | tojson }}
+    console.log(message_text)
+    console.log(message_text.length)
+    
+    
+    var message = document.getElementById("message")
+    
+    var index = 0
+    
+    var replayButton = document.getElementById("replay")
+    
+    
+    function typeWriter() {
+        if (index < message_text.length) {
+            
+            message.innerHTML += message_text[index]
+            
+            index++
+            setTimeout(typeWriter,100)
+        }
+        // The message has ended, show the replay button. 
+        else {
+            replayButton.style.display = "block"
+            replayButton.style.animationName = "comeAlive"
+
+        }
+        
+        
+    }
+    
+    window.onload = typeWriter
+    
+    function replay() {
+        history.go(0)
+    }
+    
+</script>
+</html>
