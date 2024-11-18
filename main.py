@@ -5,7 +5,6 @@ import re
 
 with open("messages.json","r",encoding="utf-8") as messages:
     messages_list = json.load(messages)
-    print(messages_list)
 
 with open("links.json","r",encoding="utf-8") as links: 
     links_list = json.load(links)
@@ -20,10 +19,14 @@ def strongify(text):
 
 
 
+
+
+
 app = Flask(__name__)
 
 app.jinja_env.filters['strongify'] = strongify
 
+@app.route("/home")
 @app.route("/")
 def home():
     return render_template('home.html',message=choice(messages_list),link=choice(links_list))
